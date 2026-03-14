@@ -1,0 +1,96 @@
+@media screen and (max-width: 900px) {
+    .menu-list {
+        flex-wrap: wrap;
+    }
+
+    .real-top-header {
+        flex-wrap: wrap;
+    }
+
+    .our-pros {
+        display: none;
+    }
+
+    .contacts {
+        flex-direction: row;
+        align-items: center;
+        width: 50%;
+    }
+
+    .contacts a {
+        margin-top: 0;
+    }
+
+    .order-call {
+        margin-left: auto;
+        background-position: 5px 50%;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .top-header {
+        position: relative;
+        margin-bottom: 40px;
+    }
+
+    .menu-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .content {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+    }
+
+    .breadcrambs {
+        grid-column: 1/2;
+    }
+}
+
+@media screen and (max-width: 590px) {
+    .contacts a {
+        display: none;
+    }
+
+    .top-header {
+        margin-bottom: 55px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .payment-method span {
+        text-indent: -9999px;
+        overflow: hidden;
+        display: block;
+    }
+
+    .address {
+        margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .top-header {
+        margin-bottom: 75px;
+    }
+
+    .real-bottom-header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .order-call {
+        margin-top: 10px;
+        white-space: nowrap;
+    }
+}

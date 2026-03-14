@@ -1,0 +1,158 @@
+@media screen and (max-width: 1260px) {
+  .nav-container {
+    justify-content: space-between;
+  }
+
+  .nav-btn {
+    display: block;
+  }
+
+  .nav-block {
+    position: absolute;
+    right: 15px;
+    top: 60px;
+    background: #dae4ed;
+    text-align: right;
+    overflow: hidden;
+    transition: height 1s;
+  }
+
+  .nav-list {
+    padding: 8px 0;
+  }
+
+  .nav-list li {
+    display: block;
+    margin: 0;
+    padding: 13px 18px;
+    width: 310px;
+  }
+
+  .nav-list a {
+    line-height: 130%;
+    color: #070c11;
+  }
+
+  .block-hidden {
+    height: 0;
+  }
+}
+
+@media screen and (max-width: 1203px) {
+  .first-column {
+    margin-bottom: 60px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .logo {
+    margin-right: 40px;
+  }
+
+  .card {
+    flex-basis: 100%;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .header-info {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .logo img {
+    width: 159px;
+    height: auto;
+  }
+
+  .top-footer {
+    margin-bottom: 60px;
+  }
+
+  .bottom-footer {
+    position: relative;
+  }
+
+  .web-dev {
+    position: absolute;
+    top: 90%;
+    left: 0;
+  }
+
+  .socials {
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .socials {
+    right: 50%;
+    top: 10%;
+  }
+
+}
+
+@media screen and (max-width:500px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .news-photo {
+    width: 240px;
+    height: 160px;
+  }
+
+  .pagenav :nth-child(4) {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 487px) {
+  .socials {
+    right: 40%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo {
+    margin-right: 0;
+  }
+
+  .logo img {
+    width: 118px;
+  }
+
+  .header-btns .btn {
+    padding: 13px 19px;
+    font-size: 14px;
+  }
+
+  .socials img {
+    height: 43px;
+    width: 48px;
+  }
+}
+
+@media screen and (max-width: 419px) {
+  .socials {
+    right: 17%;
+  }
+
+  .main-title {
+    font-size: 24px;
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  .top-footer {
+    margin-bottom: 33px;
+  }
+}

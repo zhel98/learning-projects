@@ -1,0 +1,135 @@
+@media screen and (max-width: 1300px) {
+    .real-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .car-details {
+        width: 80%;
+    }
+
+    .description {
+        flex-direction: column;
+    }
+
+    .yellow-block {
+        position: relative;
+        width: 100%;
+        flex-shrink: 0;
+    }
+
+    .yellow-block::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .yellow-block-container {
+        max-width: 100%;
+        padding-left: 80px;
+    }
+
+    .black-block {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .hidden-slogan {
+        display: none;
+    }
+
+    .two-spans {
+        display: none;
+    }
+
+    .navigation {
+        flex-wrap: wrap;
+        position: relative;
+    }
+
+    .catalog {
+        order: 1;
+        margin-right: 16px;
+    }
+
+    .cart {
+        order: 2;
+        margin-left: auto;
+        margin-right: 16px;
+    }
+
+    .nav {
+        order: 3;
+        margin-left: auto;
+        position: absolute;
+        top: 100%;
+        left: 15px;
+    }
+
+    .nav ul {
+        flex-wrap: wrap;
+    }
+
+    .breadcrumbs {
+        margin-top: 100px;
+    }
+
+    .car-details {
+        text-align: left;
+        padding: 0;
+        width: 100%;
+    }
+
+    .two-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-btn {
+        width: 100%;
+    }
+
+    .car-characteristics {
+        display: none;
+    }
+
+    .other-links {
+        margin-top: 37px;
+    }
+
+    .yellow-block-container {
+        padding-left: 0;
+    }
+
+    .full-characteristics {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .characteristic {
+        width: 100%;
+        order: 2;
+    }
+
+    td:first-child::after {
+        display: none;
+    }
+
+    .footer .container {
+        flex-direction: column;
+    }
+
+    .footer-right {
+        max-width: 274px;
+        margin-top: 62px;
+    }
+
+    .truck-wrapper {
+        width: 100%;
+    }
+}

@@ -1,0 +1,36 @@
+@media screen and (max-width: 1200px) {
+    .actuals-cards {
+        justify-content: space-evenly;
+    }
+
+    .feedback {
+        grid-template-columns: auto;
+    }
+
+    .feedback-title {
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .catalog-info {
+        grid-template-columns: none;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 905px) {
+    .product-category {
+        grid-template-columns: none;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .feedback-form {
+        grid-template-columns: auto;
+    }
+
+    .feedback-field {
+        margin-top: 0;
+    }
+}

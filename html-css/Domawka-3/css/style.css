@@ -1,0 +1,215 @@
+  body {
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    margin: 0;
+  }
+
+  .clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .container {
+    max-width: 1300px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .header {
+    padding: 20px 0;
+    border-bottom: 2px solid #1f202040;
+  }
+
+  .logo {
+    float: left;
+  }
+
+  .contacts {
+    float: right;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 178%;
+    color: #1f2020;
+  }
+
+  .email,
+  .phone {
+    background-repeat: no-repeat;
+    padding-left: 25px;
+  }
+
+  .email {
+    background-image: url(../images/ic-mail.png);
+
+  }
+
+  .phone {
+    background-image: url(../images/ic-phone.png);
+  }
+
+  .navigation {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+
+  .navigation a {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 107%;
+    color: #000;
+    text-decoration: none;
+    margin-right: 30px;
+  }
+
+  .main-block {
+    padding: 40px;
+    background-color: #d9d9d9;
+    background-image: url(../images/main-photo.png);
+    background-position: bottom 100px right 80px;
+    background-repeat: no-repeat;
+  }
+
+  .main-info {
+    max-width: 55%;
+  }
+
+  .main-info h1 {
+    font-weight: 500;
+    font-size: 70px;
+    line-height: 106%;
+    color: #1f2020;
+    margin-bottom: 50px;
+  }
+
+
+  .text-i-btn {
+    margin-bottom: 50px;
+  }
+
+  .text-1 {
+    font-weight: 500;
+    font-size: 20px;
+    color: #1f2020;
+    margin-right: 280px;
+  }
+
+  .btn {
+    float: right;
+    background-image: url(../images/ic-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 90% center;
+    font-weight: 400;
+    font-size: 20px;
+    color: #fbfcfd;
+    background-color: orangered;
+    text-decoration: none;
+    text-wrap: nowrap;
+    margin-top: 10px;
+    padding: 15px 55px 15px 25px;
+    border: none;
+  }
+
+
+  .text-2 {
+    font-weight: 400;
+    font-size: 26px;
+    color: #1f2020;
+    margin-bottom: 100px;
+  }
+
+  .photo-1 {
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 25px;
+  }
+
+  .main-article h2 {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-weight: 600;
+    font-size: 31px;
+    color: #1f2020;
+  }
+
+  .photo-2 {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 75px;
+    margin-left: 55px;
+  }
+
+
+  .main-article2 p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    color: #1f2020;
+    margin-bottom: 50px;
+  }
+
+
+  .main-article2 a {
+    background-image: url(..//images/ic-pdf.png);
+    background-repeat: no-repeat;
+    background-position: 88% center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #fbfcfd;
+    background-color: #1f2020;
+    text-decoration: none;
+    padding-left: 25px;
+    padding-right: 60px;
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+
+
+  .footer {
+    margin-top: 150px;
+    background-color: #1f2020;
+    padding: 15px 25px 5px 25px
+  }
+
+
+
+  .copyright,
+  .politics {
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 10px;
+    color: #fff;
+  }
+
+  .copyright {
+    float: left;
+  }
+
+  .politics {
+    float: right;
+  }
+
+  .social {
+    text-align: center;
+  }
+
+  .link-1,
+  .link-2 {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-indent: 105%;
+    overflow: hidden;
+  }
+
+  .link-1 {
+    background-image: url(..//images/ic-tg.png);
+  }
+
+  .link-2 {
+    background-image: url(..//images/ic-whatsap.png)
+  }

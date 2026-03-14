@@ -1,0 +1,342 @@
+:root {
+  --second-family: "helveticaneuecyrmedium", sans-serif;
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  background: #fff;
+  line-height: 1.3;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.container {
+  max-width: 1410px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.header {
+  box-shadow: 0 4px 10px 0 rgba(105, 105, 105, 0.1);
+}
+
+.main-info {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-left: 0;
+  margin-right: 44px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.main-info ul {
+  padding: 0;
+  margin: 0;
+}
+
+.main-info li {
+  list-style: none;
+  display: inline-block;
+  margin-right: 33px;
+}
+
+.main-info li:last-child {
+  margin-right: 0;
+}
+
+.main-info li a {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+}
+
+.main-info li a:hover,
+li.isActive a {
+  font-weight: 600;
+}
+
+.main-article {
+  margin-top: 60px;
+}
+
+.main-title,
+.second-article h2 {
+  font-weight: 800;
+  font-size: 38px;
+  text-transform: uppercase;
+  color: #0c58c9;
+  text-align: center;
+  margin: 0 0 63px;
+}
+
+.article-img-block {
+  float: right;
+  padding: 35px 100px 116px 71px;
+  background: url(../images/photo-bg-1.png) left bottom / contain no-repeat;
+  margin: 0 0 10px 10px;
+}
+
+.teacher-photo {
+  display: block;
+  border-radius: 30px;
+}
+
+.education {
+  border-bottom: 4px solid #f4e8da;
+}
+
+.title-section {
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+
+.education-list,
+.courses-list,
+.activities-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.education-list li,
+.activities-list li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+}
+
+.education-list li:last-child,
+.activities-list li:last-child {
+  margin-bottom: 0;
+}
+
+.education-list li::before,
+.activities-list li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background-image: url(../images/ic-check.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.courses {
+  margin-top: 61px;
+}
+
+.courses-title {
+  margin: 0 0 21px 0;
+}
+
+.courses ol {
+  padding-left: 5px;
+}
+
+.courses-list {
+  counter-reset: List2;
+}
+
+.courses-list li {
+  margin-bottom: 20px;
+}
+
+.courses-list li::before {
+  counter-increment: List2;
+  content: counter(List2) ")";
+  font-weight: 700;
+  margin-right: 15px;
+}
+
+.activities {
+  margin-top: 67px;
+}
+
+.activities-title {
+  margin: 0 0 22px 0;
+  font-weight: 600;
+  font-size: 22px;
+  text-transform: uppercase;
+  color: #333;
+}
+
+.buttons {
+  display: flex;
+  margin: 67px 0 74px 0;
+  padding-right: 36px;
+}
+
+.buttons a,
+.buttons button,
+.second-article button {
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #333;
+  background: #f4e8da;
+  border: 1px solid #ecbf2e;
+  border-radius: 20px;
+  padding: 21px 34px;
+  text-decoration: none;
+}
+
+.buttons a:hover,
+.buttons button:hover,
+.second-article button:hover {
+  outline: 3px solid #ecbf2e;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.buttons a:active,
+.buttons button:active,
+.second-article button:active {
+  box-shadow: 4px 4px 20px 0 #f4e8da, -4px -4px 20px 0 #f4e8da;
+}
+
+.buttons a {
+  margin-left: auto;
+  margin-right: 54px;
+}
+
+.buttons button {
+  margin-right: auto;
+}
+
+.second-article {
+  margin-top: 71px;
+}
+
+.second-article h2 {
+  padding-left: 15px;
+}
+
+.second-article-img {
+  float: right;
+  padding: 35px 16px 73px 183px;
+  background: url(../images/photo-bg-2.png) right bottom / contain no-repeat;
+  margin: 0 0 10px 10px;
+}
+
+.lake-photo {
+  border-radius: 20px;
+  display: block;
+}
+
+.steps {
+  padding: 0;
+  margin: 94px 0 0 0;
+  counter-reset: list;
+  list-style: none;
+}
+
+.steps li {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #3d3f42;
+}
+
+.steps li::before {
+  content: "0" counter(list);
+  counter-increment: list;
+  font-weight: bold;
+  margin-right: 10px;
+  font-family: var(--second-family);
+  font-weight: 500;
+  font-size: 64px;
+  text-transform: uppercase;
+  color: #ecbf2e;
+  padding-right: 5px;
+}
+
+.second-article button {
+  margin-top: 39px;
+  margin-bottom: 95px;
+}
+
+.pre-footer {
+  border-top: 3px solid #f4e8da;
+}
+
+.pre-footer-links {
+  padding: 34px 127px 40px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-nav {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.bottom-nav li {
+  margin-bottom: 19px;
+}
+
+.bottom-nav li:last-child {
+  margin: 0;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+}
+
+.payment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mastercard {
+  margin-bottom: 19px;
+}
+
+.pre-footer-links p {
+  margin: 0 0 12px 0;
+  font-weight: 600;
+  font-size: 20px;
+  color: #333;
+}
+
+.footer {
+  border-top: 1px solid #e5e5e5;
+}
+
+.footer p {
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin: 21px 0 53px 0;
+}

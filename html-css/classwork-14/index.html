@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/media.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="form-block">
+      <form action="#" method="POST">
+        <h3>Заголовок формы</h3>
+        <fieldset>
+          <legend>Название фрагмента формы</legend>
+          <div class="form-row">
+            <label for="user-name" class="form-label">Введите ваше имя и фамилию</label>
+            <input type="text" class="field" value="Ольга Гудова" name="nameUser" readonly id="user-name">
+          </div>
+          <div class="form-row">
+            <label class="form-label-2">Укажите ваш email
+              <input type="email" class="field" placeholder="ваш email" name="email" required>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Название фрагмента формы</legend>
+          <div class="form-row">
+            <label class="form-label-2">Укажите ваш пароль, не менее 8 символов
+              <input type="password" class="field" placeholder="ваш пароль" name="passw" minlength="8" pattern="">
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-label-2">Укажите ваш номер телефона
+              <input type="tel" class="field" placeholder="ваш телефон" name="phone">
+              <input type="hidden" value="some info">
+            </label>
+          </div>
+          <div class="form-row">
+            <label class="form-label-2">Выберите дату
+              <input type="date" class="field" name="date">
+            </label>
+          </div>
+        </fieldset>
+        <div class="form-row">
+          <label class="form-label-2">Укажите ваш аккаунт в инстаграмме
+            <input type="url" class="field" placeholder="ваш аккаунт в инстаграмме" name="insta">
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="form-label-2">Укажите сумму
+            <input type="number" class="field" placeholder="сумма" name="sum" step="10" min="1000" max="10000">
+          </label>
+        </div>
+        <div class="form-row">
+          <label class="form-label-2">Ваш комментарий (не более 1000 символов)
+            <textarea name="comment" placeholder="Ваш комментарий" class="field area" maxlength="1000"></textarea>
+          </label>
+        </div>
+        <div class="form-row">
+          <input type="checkbox" id="agreement" value="yes" name="agreement" class="check" checked>
+          <label for="agreement" class="label-check">Ваше согласие на использование личных данных</label>
+        </div>
+        <div class="form-row">
+          <p>Отметьте ваш любимый напиток</p>
+          <input type="radio" id="coffee" value="Кофе" name="drink">
+          <label for="coffee">Кофе</label>
+          <input type="radio" id="tea" value="Чай" name="drink" checked>
+          <label for="tea">Чай</label>
+          <input type="radio" id="juice" value="Сок" name="drink">
+          <label for="juice">Сок</label>
+        </div>
+        <div class="form-row">
+          <input type="file">
+        </div>
+        <div class="form-row">
+          <label for="city">Выберите город</label>
+          <select name="city" id="city" class="field">
+            <option disabled selected>Выберите город</option>
+            <optgroup label="Россия">
+              <option value="Москва">Москва</option>
+              <option value="Новосибирск">Новосибирск</option>
+              <option value="Иркутск">Иркутск</option>
+            </optgroup>
+            <optgroup label="Кыргызстан">
+              <option value="Бишкек">Бишкек</option>
+              <option value="Ош">Ош</option>
+              <option value="Каракол">Каракол</option>
+            </optgroup>
+          </select>
+        </div>
+        <button type="submit" disabled>Отправить</button>
+        <button type="reset">Очистить</button>
+      </form>
+    </div>
+
+
+  </div>
+
+
+
+
+
+</body>
+
+</html>
