@@ -8,20 +8,25 @@ for item in data:
         designations.append(item)
 print(f'лист дезигнаторы: {designations}\nлист коды: {codes}')
 
-operators = dict()
-i=0
-while i < len(codes):
-    key = designations[i] # у словаря операторы будут значения Key - название операторов (дезингаторов)
-    value = codes[i] # а вэлью будут коды телефеонов
-    operators[key]=value # присобачиваем ключи и вэлью друг дружке
-    i+=1
-print(f'словарь операторы: {operators}')
-
+operators = dict(zip(designations,codes)) # через дикт и зип (дикт- мучу слоаврь а зип объединяю 2 листа)
 
 print(f'удаленные операторы:\nФонекс с кодом {operators.pop("Fonex")}, Кател с кодом {operators.pop("Katel")}')
-print(f'мистер пропер веселей мистер пропер в два раза быстрей мистер пропер: {operators}')
+print(f'промежуточный итог: {operators}')
 
-#как првевратить operators из словря в сет?
-operators = set()
-print(operators)
 
+#юзая ключ мы ссылаемся на коды и превращем их в сеты
+#operators[key] - ссылка на вэлью то есть то что лежит внутри словаря и этот вэлью мы как раз таки и превращем в сет
+for key in operators:
+    operators[key]={operators[key]}
+
+#дальше изи при помощи ключа я добавляю в уже существующий сет еще один сет
+operators['O!'].add('0700')
+operators['O!'].add('0500')
+operators['Megacom'].add('0555')
+operators['Megacom'].add('0558')
+operators['Beeline'].add('0777')
+operators['Beeline'].add('0111')
+
+print(f"0!-{operators['O!']}")
+print(f"Beeline-{operators['Beeline']}")
+print(f"Megacom-{operators['Megacom']}")
