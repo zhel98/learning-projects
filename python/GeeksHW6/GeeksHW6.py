@@ -15,16 +15,16 @@ def is_pass_gucci(password) -> bool:
             score +=1 
         if any(character.isdigit() for character in password):
              score +=1
-        if any(character.isalpha() for character in password):
-             score +=1
         
         for character in password:
             if not character.isalnum():
                 special_counter += 1
-            if special_counter >= 2:
+        if special_counter >= 2:
                 score +=1
         if score > 4: 
              return True
+        else: 
+             return False
 
 if is_pass_gucci(password) == True:
      print("My man ur pass is gucci")
