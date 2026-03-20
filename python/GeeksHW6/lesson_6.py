@@ -15,16 +15,15 @@
 "а в итоге возвращает данные в строке (формат: ФАМИЛИЯ Имя)"
 "доп условие все буквы принимает"
 
+name = input("enter ur name: ")
+surname = input("enter ur surname: ")
+
 def get_name_surname(name: str, surname: str) -> str:
-    return surname.upper()+ " " + name.title()
+    if name.isalpha() and surname.isalpha():
+      return surname.upper()+ " " + name.title()  
+    else:
+        print("ты дурень")
 
-name = input("enter ur name:")
-surname = input("enter ur surname")
-
-if name.isalpha() and surname.isalpha():
-    print(get_name_surname(name,surname))
-else:
-    print("ты дурень")
-
+print(get_name_surname(name,surname))
 
 
