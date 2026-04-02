@@ -5,7 +5,7 @@ from pathlib import Path
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # type: ignore
 
 
 def to_float(value, default=None):
