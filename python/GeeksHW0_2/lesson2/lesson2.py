@@ -57,6 +57,12 @@ class D(B, C):
     def action(self):
         super().action()
         print("D")
-test = D()
-test.action()
-print(D.__mro__)
+# test = D()
+# test.action()
+# print(D.__mro__)
+i=0
+while True:
+    i+=1
+    if i == 10+1:
+        break
+    print(i)
