@@ -1,0 +1,220 @@
+/* лого + меню */
+header {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 6px;
+}
+
+.container {
+    max-width: 1200px;
+    padding-bottom: 20px;
+}
+
+.logo {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.main-menu a {
+    padding-left: 50px;
+    font-size: 18px;
+    color: #363853;
+    text-decoration: none;
+    font-weight: 400px;
+}
+
+/* главный блок №1 */
+body {
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    margin: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.main-block {
+    background-color: #f4eeee;
+}
+
+.main-container {
+    padding-top: 80px;
+    padding-bottom: 100px;
+    background-image: url(../images/main-img.png);
+    background-repeat: no-repeat;
+    background-position: top 40px right;
+}
+
+.main-info {
+    margin-right: 50%;
+}
+
+.main-title {
+    font-weight: 500;
+    font-size: 66px;
+    color: #363853;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+.main-title span {
+    color: #ff7a50;
+}
+
+.main-info p {
+    font-weight: 400;
+    font-size: 20px;
+    color: #363853;
+    line-height: 1.5;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+    background-color: #ff7a50;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 10px 25px;
+}
+
+/* главный блок №2 */
+
+.main-block2 {
+    margin-bottom: 100px;
+}
+
+.main-container2 {
+    padding-top: 80px;
+    padding-bottom: 50px;
+    background-image: url(../images/food-delivary.png);
+    background-repeat: no-repeat;
+    /* слева нет отсупов а сверху 100пикселей как на картинке */
+    background-position: left 0px top 100px;
+}
+
+.main-info2 {
+    margin-left: 50%;
+}
+
+.main-title2 {
+    font-weight: 500;
+    font-size: 36px;
+    color: #363853;
+    line-height: 1.39;
+    margin-bottom: 20px;
+}
+
+.main-title2 span {
+    color: #ff7a50;
+}
+
+.main-info2 p {
+    font-weight: 400;
+    font-size: 20px;
+    color: #363853;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.spisok ul {
+    list-style: none;
+    /* дурацкие отступы =0 */
+    padding: 0;
+    margin: 0;
+}
+
+.spisok li {
+    font-size: 24px;
+    font-weight: 400;
+    color: #363853;
+    line-height: 1.25;
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 100px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+
+.timer {
+    background-image: url(../images/ic-timer.png);
+}
+
+.delivery {
+    background-image: url(../images/ic-delivery.png);
+}
+
+.restaurant {
+    background-image: url(../images/ic-resturent.png);
+}
+
+.btn2 {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+    background-color: #ff7a50;
+    border-radius: 5px;
+    text-decoration: none;
+    padding: 10px 25px;
+    margin-top: 40px;
+}
+
+/* последний блок */
+.main-title3 {
+    text-align: center;
+    font-weight: 500;
+    font-size: 36px;
+    color: #363853;
+    line-height: 1.39;
+    margin-bottom: 40px;
+}
+
+.main-title3 span {
+    color: #ff7a50;
+}
+
+/* чтобы картиночки отображались в строчку, дурацкий inline не дает этого сделать */
+.kartochka {
+    text-align: center;
+    display: inline-block;
+    padding-left: 20px;
+}
+
+.pizza {
+    border-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.kartochka a {
+    margin-top: 15px;
+    color: #363853;
+    display: block;
+    text-decoration: none;
+    text-align: left;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.25;
+    margin-bottom: 100px;
+}
+
+footer {
+    background-color: #f4eeee;
+}
+
+footer h4 {
+    padding-top: 15px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #646464;
+    margin-bottom: 0;
+}

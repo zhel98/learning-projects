@@ -1,0 +1,330 @@
+@media screen and (min-width: 780px) {
+    .four-cards {
+        flex-wrap: nowrap;
+    }
+
+    .card {
+        width: calc((100% - 76px)/4);
+    }
+
+    .card p {
+        margin-top: 31px;
+        margin-bottom: 62px;
+        padding: 0 45px;
+    }
+
+    .price-request {
+        display: flex;
+        padding: 0;
+        margin-bottom: 80px;
+    }
+
+    .wm-wrapper,
+    .request-info {
+        flex-basis: 50%;
+    }
+
+    .wm-wrapper {
+        padding-top: 40px;
+        padding-bottom: 60px;
+    }
+
+    .request-info {
+        background: url(../images/askpricestar.png) top left /auto 100% no-repeat;
+    }
+
+    .request-info-half {
+        max-width: 680px;
+        padding-right: 20px;
+        align-items: center;
+        height: 100%;
+        display: flex;
+    }
+
+    .info {
+        position: static;
+        transform: translateY(0);
+        text-align: left;
+    }
+
+    .info h2 {
+        font-weight: 500;
+        font-size: 28px;
+        line-height: 120%;
+        color: #000;
+    }
+
+    .info p {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 120%;
+        color: #000;
+    }
+
+    .reviews {
+        padding-right: 52px;
+    }
+
+    .reviews-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .socials2 {
+        display: none;
+    }
+
+    .review-card {
+        width: calc((100% - 84px)/2);
+    }
+
+    .footer-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .working-time {
+        order: 0;
+    }
+
+    .working-time::before {
+        display: none;
+    }
+
+    .copyright {
+        order: 1;
+        margin-top: 0;
+    }
+
+    .order-call {
+        order: 2;
+        margin-top: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0;
+    }
+
+    .main-container {
+        margin-bottom: 70px;
+    }
+
+    .socials {
+        margin-left: 84px;
+        margin-right: auto;
+        padding-bottom: 14px;
+    }
+
+    .main-info {
+        padding-left: 10px;
+    }
+
+    .btn-nav {
+        display: none;
+    }
+
+    .navigation {
+        position: absolute;
+        left: 17px;
+        bottom: -36px;
+        background: #fff;
+        width: calc(100% - 34px);
+        padding: 31px 0;
+        border-radius: 0 0 20px 20px;
+        transform: translateY(57%);
+    }
+
+    .navigation ul {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .navigation li {
+        border: none;
+        padding: 0;
+    }
+
+    .navigation a {
+        font-weight: 500;
+        font-size: 16px;
+        color: #000;
+    }
+
+    .navigation ul li:first-child a {
+        border-bottom: 1px solid #000;
+    }
+
+    .nav-hidden {
+        height: auto;
+    }
+
+    .contacts {
+        position: static;
+        transform: translateY(0);
+        padding: 0;
+        background: transparent;
+        width: auto;
+        display: flex;
+        align-items: center;
+        padding-bottom: 24px;
+    }
+
+    .phone {
+        background: transparent;
+        -webkit-text-fill-color: #fff;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .phone::before {
+        background-image: url(../images/ic-phone-white.svg);
+        width: 20px;
+        height: 20px;
+    }
+
+    .btn-call {
+        background: transparent;
+        border: 2px solid #fff;
+    }
+
+    .btn-call::before {
+        display: none;
+    }
+
+    .btn-call span {
+        background: transparent;
+        -webkit-text-fill-color: #fff;
+    }
+
+    .services {
+        margin-bottom: 277px;
+    }
+
+    .four-cards {
+        padding: 0 75px;
+    }
+
+    .reviews p {
+        max-width: 780px;
+    }
+
+    .reviews-cards {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+    }
+
+    .review-card {
+        width: calc((100% - 60px)/3);
+        padding-right: 26px;
+    }
+
+    .review-card:nth-of-type(2) {
+        box-shadow: 0 3px 15px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .working-time {
+        text-align: center;
+    }
+
+    .hidden-p {
+        display: block;
+        font-weight: 400;
+        font-size: 20px;
+        color: #fff;
+        margin: 0 27px 0 0;
+        padding-top: 5px;
+    }
+
+    .copyright span {
+        font-size: 20px;
+    }
+
+    .footer {
+        margin-top: 120px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-block {
+        background: url(../images/bg-big.png) bottom 20px left / cover no-repeat;
+    }
+
+    .main-container {
+        min-height: 949px;
+        padding-top: 222px;
+        background-size: 1328px auto;
+        background-position: bottom right -17px;
+    }
+
+    .main-list {
+        margin: 37px 0;
+    }
+
+    .navigation {
+        width: calc(100% - 190px);
+        left: 95px;
+    }
+
+    .wm-wrapper {
+        padding-top: 40px;
+        padding-bottom: 60px;
+    }
+
+    .price-request {
+        margin-bottom: 400px;
+    }
+
+    .socials2 {
+        display: inline-block;
+    }
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .navigation a:hover {
+        border-bottom: 1px solid #000;
+    }
+
+    .btn-call:hover,
+    .btn-call-btm:hover {
+        background: linear-gradient(180deg, #4d1e8b 0%, #03517a 100%);
+    }
+
+    .btn-call:active,
+    .btn-call-btm:active {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(2px);
+    }
+
+    .btn:hover,
+    .know-price:hover {
+        background: #009e2e;
+    }
+
+    .btn:active {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2),
+            2px 8px 30px 0 #00bb34;
+        transform: translateY(2px);
+    }
+
+    .know-price:active {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(2px);
+    }
+
+    .review-card:hover {
+        box-shadow: 0 3px 15px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-call-btm:hover {
+        background: linear-gradient(180deg, #4d1e8b 0%, #03517a 100%);
+    }
+}

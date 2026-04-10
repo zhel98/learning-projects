@@ -1,0 +1,533 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-variation-settings: "wdth"100;
+    margin: 0;
+    font-size: 20px;
+    background: #fff;
+    color: #000;
+    line-height: 1.28;
+    min-width: 480px;
+}
+
+.container {
+    max-width: 1360px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 20px;
+    padding-left: 20px;
+    
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.header {
+    background: linear-gradient(90deg, #443682 0%, #28418a 46.75%, #00669c 100%);
+}
+
+.header-container {
+    padding-top: 13px;
+    padding-bottom: 32px;
+    position: relative;
+    
+}
+
+.logo {
+    font-weight: 500;
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 22px 0 24px 114px;
+    background: url(../images/logo.svg) top left no-repeat;
+    margin-bottom: 25px;
+}
+
+.logo strong {
+    font-weight: 700;
+    font-size: 20px;
+    display: block;
+}
+
+.socials a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-indent: 105%;
+    white-space: nowrap;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 7px;
+}
+
+.insta {
+    background-image: url(../images/ic-insta.svg);
+}
+
+.vk {
+    background-image: url(../images/ic-vk.svg);
+}
+
+.tg {
+    background-image: url(../images/ic-tg.svg);
+}
+
+.whatsap {
+    background-image: url(../images/ic-whatsap.svg);
+}
+
+.contacts {
+    position: absolute;
+    left: 17px;
+    bottom: 0;
+    background: #fff;
+    width: calc(100% - 34px);
+    padding: 21px 18px 19px;
+    border-radius: 0 0 20px 20px;
+    transform: translateY(100%);
+    text-align: right;
+}
+
+.phone {
+    font-weight: 500;
+    font-size: 15px;
+    background: linear-gradient(83deg, #5f24a8 0%, #01669c 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+.phone::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 10px;
+    background: url(../images/ic-phone-blue.svg) center no-repeat;
+}
+
+.btn-call {
+    padding: 10px 20px 12px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #5f24a8 0%, #04629a 100%);
+    border: none;
+    position: relative;
+}
+
+.btn-call::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    z-index: 9;
+}
+
+.btn-call span {
+    font-weight: 500;
+    font-size: 15px;
+    background: linear-gradient(180deg, #5f24a8 0%, #04629a 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 10;
+}
+
+.navigation {
+    overflow: hidden;
+    transition: height 2s;
+}
+
+.nav-hidden {
+    height: 0;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.navigation li {
+    padding: 6px 0;
+    border-bottom: 1px dotted #ffffff70;
+}
+
+.navigation li:last-child {
+    border: none;
+}
+
+.navigation a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-nav {
+    width: 53px;
+    height: 53px;
+    border: none;
+    background: url(../images/ic-bar.svg) center no-repeat;
+    position: absolute;
+    top: 23px;
+    right: 20px;
+}
+
+.main-block {
+    background: url(../images/bg-sm.png) bottom 160px left / cover no-repeat;
+}
+
+.main-container {
+    min-height: 805px;
+    padding-top: 126px;
+    margin-bottom: 44px;
+    background: url(../images/main-photo.png) bottom right -40px / contain no-repeat;
+}
+
+.main-info {
+    max-width: 521px;
+}
+
+.main-title {
+    font-weight: 700;
+    font-size: 39px;
+    color: #fff;
+}
+
+.main-list {
+    margin: 24px 0;
+    padding-left: 20px;
+}
+
+.main-list li {
+    font-weight: 500;
+    line-height: 120%;
+    color: #fff;
+}
+
+.btn {
+    border-radius: 10px;
+    background: #00bb34;
+    box-shadow: 2px 8px 30px 0 #00bb34;
+    padding: 21px 60px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+}
+
+.services {
+    margin-bottom: 61px;
+}
+
+.four-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 29px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    width: calc((100% - 29px)/2);
+    background: linear-gradient(180deg, #a6dbf5 0%, #451874 97.92%);
+    border-radius: 28px;
+    border: none;
+}
+
+.card p {
+    margin-top: 15px;
+    margin-bottom: 37px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #fff;
+    padding: 0 40px;
+}
+
+.card::before {
+    content: "";
+    display: block;
+    width: 93px;
+    height: 93px;
+    border-radius: 100%;
+    margin-top: 39px;
+}
+
+.card1::before {
+    background: url(../images/60-minutes.png) center no-repeat, #fff;
+}
+
+.card2::before {
+    background: url(../images/settings.png) center no-repeat, #fff;
+}
+
+.card3::before {
+    background: url(../images/quality.png) center no-repeat, #fff;
+}
+
+.card4::before {
+    background: url(../images/guarantee.png) center no-repeat, #fff;
+}
+
+.price-request {
+    padding: 0 24px;
+    margin-bottom: 36px;
+    position: relative;
+}
+
+.wm-wrapper img {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 4px 15px 5px rgba(95, 36, 168, 0.5);
+    border-radius: 8px;
+    display: block;
+}
+
+.info {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    padding: 0 50px;
+    transform: translateY(-50%);
+}
+
+.info h2 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    margin: 0;
+}
+
+.info p {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 120%;
+    margin-top: 26px;
+    margin-bottom: 32px;
+}
+
+.know-price {
+    box-shadow: 2px 4px 20px 0 rgba(0, 187, 52, 0.5);
+    background: #00bb34;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    padding: 21px 56px;
+    border-radius: 10px;
+    border: none;
+}
+
+.reviews {
+    background: url(../images/star.png) top left / auto auto no-repeat;
+}
+
+.reviews h2,
+.reviews p {
+    padding-left: 50px;
+}
+
+.reviews h2 {
+    margin-top: 86px;
+    margin-bottom: 22px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.reviews p {
+    margin-top: 0;
+    margin-bottom: 80px;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.reviews-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+    padding: 0 14px;
+}
+
+.review-card {
+    box-shadow: 0 3px 10px 5px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 42px;
+    padding: 30px 50px 0 25px;
+    position: relative;
+}
+
+.author-details {
+    display: flex;
+}
+
+.profile-pic {
+    width: 86px;
+    height: 86px;
+    margin-right: 20px;
+}
+
+.author-name {
+    font-size: 18px;
+    margin-bottom: 11px;
+}
+
+.date {
+    font-weight: 400;
+    font-size: 16px;
+    color: #585858;
+}
+
+.name-time {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.socials2 {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+}
+
+.socials2 a {
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    text-indent: 105%;
+    white-space: nowrap;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 11px;
+}
+
+.socials2 a:last-child {
+    margin-right: 0;
+}
+
+.vk-review {
+    background: url(../images/vk-review.svg);
+}
+
+.fb-review {
+    background: url(../images/fb-review.svg);
+}
+
+.review-card p {
+    padding: 0;
+    margin-top: 27px;
+    margin-bottom: 24px;
+    font-weight: 400;
+    line-height: 128%;
+}
+
+.footer {
+    margin-top: 85px;
+    background: #000;
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 70px;
+    padding-bottom: 73px;
+}
+
+.working-time {
+    display: inline-flex;
+}
+
+.working-time span {
+    font-weight: 400;
+    font-size: 15px;
+    color: #fff;
+}
+
+.hidden-p {
+    display: none;
+}
+
+.working-time::before {
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 12px;
+    background: url(../images/time.png) center no-repeat;
+}
+
+.order-call {
+    margin-top: 23px;
+    display: flex;
+    align-items: center;
+}
+
+.order-call a {
+    margin-right: 25px;
+}
+
+.phone-btm {
+    font-weight: 400;
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-flex;
+}
+
+.phone-btm::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 14px;
+    background: url(../images/ic-phone-white.svg) center no-repeat;
+}
+
+.btn-call-btm {
+    padding: 14px 21px;
+    font-weight: 500;
+    font-size: 15px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    background: none;
+}
+
+.copyright {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.copyright span {
+    font-weight: 400;
+    font-size: 15px;
+    color: #fff;
+    align-self: center;
+}

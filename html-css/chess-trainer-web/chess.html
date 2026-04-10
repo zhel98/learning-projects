@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шахматный тренажёр</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f5f5f0;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.wrap{padding:1rem 0;max-width:700px;width:100%;margin:0 auto}
+.top-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.top-bar label{font-size:13px;color:#666}
+.top-bar select{font-size:13px;padding:4px 8px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;cursor:pointer}
+.main{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.board-wrap{flex:0 0 auto}
+.col-labels{display:flex;margin-left:22px}
+.col-lbl{width:52px;text-align:center;font-size:11px;color:#888;font-weight:500}
+.board-row{display:flex;align-items:center}
+.row-lbl{width:22px;font-size:11px;color:#888;font-weight:500;text-align:center}
+.sq{width:52px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;user-select:none}
+.sq.light{background:#f0d9b5}
+.sq.dark{background:#b58863}
+.sq.sel{outline:3px solid #f6f600;outline-offset:-3px;z-index:2}
+.sq.lm-light{background:#cdd16e}
+.sq.lm-dark{background:#aaa23a}
+.sq.hint-dot::after{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(20,85,30,0.45);pointer-events:none}
+.sq.hint-cap::after{content:'';position:absolute;inset:0;border-radius:50%;border:3px solid rgba(20,85,30,0.45);pointer-events:none}
+.piece{width:48px;height:48px;display:flex;align-items:center;justify-content:center;position:relative}
+.side{flex:1;min-width:190px}
+.card{background:#eee;border-radius:12px;padding:12px;margin-bottom:10px}
+.phase-pill{display:inline-block;font-size:12px;font-weight:500;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.ph-op{background:#e1f5ee;color:#0f6e56}
+.ph-mid{background:#faeeda;color:#854f0b}
+.ph-end{background:#fcebeb;color:#a32d2d}
+.timer-wrap{text-align:center;margin-bottom:10px}
+.ring-c{position:relative;width:72px;height:72px;display:inline-block}
+.ring-c svg{transform:rotate(-90deg)}
+.ring-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:20px;font-weight:500;color:#111}
+.turn-lbl{font-size:13px;font-weight:500;color:#555;margin-bottom:3px}
+.think-msg{font-size:12px;color:#666}
+.info-msg{font-size:12px;color:#666;text-align:center;margin-top:5px;min-height:15px}
+.confirm-btn{width:100%;padding:9px;border-radius:8px;border:1px solid #ccc;background:#fff;color:#111;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,opacity .15s}
+.confirm-btn:disabled{opacity:.4;cursor:not-allowed}
+.confirm-btn.ready{background:#4a9e5c;color:#fff;border-color:#4a9e5c}
+.confirm-btn.instant{background:#185fa5;color:#fff;border-color:#185fa5}
+.sm-btn{width:100%;padding:7px;border-radius:8px;border:1px solid #ddd;background:transparent;color:#666;font-size:12px;cursor:pointer;margin-top:6px}
+.sm-btn:hover{background:#eee}
+.log-wrap{margin-top:10px;font-size:11px;color:#666;max-height:100px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:3px}
+.log-wrap span{padding:2px 5px;background:#fff;border-radius:4px}
+.log-wrap .op{border-left:2px solid #1d9e75}
+.log-wrap .mid{border-left:2px solid #ef9f27}
+.log-wrap .end{border-left:2px solid #e24b4a}
+.status-overlay{text-align:center;padding:10px;font-size:14px;font-weight:500;color:#111;border-radius:8px;background:#eee;margin-bottom:8px;display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top-bar">
+  <label>Уровень:</label>
+  <select id="lvl-sel">
+    <option value="1">Новичок</option>
+    <option value="2" selected>Любитель</option>
+    <option value="3">Средний</option>
+    <option value="4">Сильный</option>
+  </select>
+  <label style="margin-left:8px">Я играю:</label>
+  <select id="color-sel">
+    <option value="w">Белыми</option>
+    <option value="b">Чёрными</option>
+  </select>
+  <button class="sm-btn" id="new-btn" style="width:auto;padding:6px 14px;margin-top:0">Новая партия</button>
+</div>
+<div class="main">
+  <div class="board-wrap">
+    <div class="col-labels" id="col-labels"></div>
+    <div id="board-rows"></div>
+  </div>
+  <div class="side">
+    <div class="status-overlay" id="status-overlay"></div>
+    <div style="text-align:center;margin-bottom:8px">
+      <span class="phase-pill ph-op" id="phase-pill">Дебют</span>
+    </div>
+    <div class="timer-wrap">
+      <div class="ring-c">
+        <svg width="72" height="72" viewBox="0 0 72 72">
+          <circle cx="36" cy="36" r="30" fill="none" stroke-width="5" stroke="#ddd"/>
+          <circle id="ring" cx="36" cy="36" r="30" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="0" stroke="#185fa5"/>
+        </svg>
+        <div class="ring-num" id="ring-num">—</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="turn-lbl" id="turn-lbl">Ваш ход (белые)</div>
+      <div class="think-msg" id="think-msg">Выберите фигуру</div>
+    </div>
+    <button class="confirm-btn instant" id="confirm-btn" disabled>Подтвердить ход</button>
+    <div class="info-msg" id="info-msg">Дебют — таймер не нужен</div>
+    <div class="log-wrap" id="log"></div>
+  </div>
+</div>
+</div>
+
+<script>
+const FILES='abcdefgh';
+const OPENING_HALF=10;
+
+function makeSVG(paths,size){
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 45 45">${paths}</svg>`;
+}
+
+function pieceHTML(p){
+  if(!p) return '';
+  const col=p[0],type=p[1];
+  const f=col==='w'?'#fff':'#2c2c2a';
+  const s='#000';
+  const hi=col==='w'?'#e0e0e0':'#555';
+  const sw=1.5;
+  let paths='';
+  if(type==='K'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<path d="M22.5 38.5c-5.5 0-10.5-1.5-10.5-3.5v-3c0 1 5 2.5 10.5 2.5s10.5-1.5 10.5-2.5v3c0 2-5 3.5-10.5 3.5z"/>
+<path d="M12 35c0 2 4.8 3.5 10.5 3.5S33 37 33 35s-4.8-3.5-10.5-3.5S12 33 12 35z"/>
+<path d="M12 32c0-1.5 1.5-3 4-4l6.5-2 6.5 2c2.5 1 4 2.5 4 4"/>
+<path d="M14 26.5s-1-9 8.5-12.5c9.5 3.5 8.5 12.5 8.5 12.5"/>
+<path d="M20.5 14c0-3 4-3 4 0"/>
+<line x1="22.5" y1="6" x2="22.5" y2="13" stroke="${s}" stroke-width="2"/>
+<line x1="19.5" y1="9" x2="25.5" y2="9" stroke="${s}" stroke-width="2"/>
+<path d="M12 32h21" stroke="${hi}" stroke-width="1" fill="none"/>
+</g>`;
+  } else if(type==='Q'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="6" cy="12" r="2.5"/>
+<circle cx="14" cy="9" r="2.5"/>
+<circle cx="22.5" cy="7.5" r="2.5"/>
+<circle cx="31" cy="9" r="2.5"/>
+<circle cx="39" cy="12" r="2.5"/>
+<path d="M9 27c3-8 5-14 13.5-14S36 19 39 27"/>
+<path d="M6 12l3 15h27l3-15"/>
+<path d="M9 27c0 1 1 2 2 3h23c1-1 2-2 2-3"/>
+<path d="M11 30h23"/>
+<path d="M12 33h21"/>
+<path d="M11 36c4-1 18-1 23 0v2c-4 1-18 1-23 0v-2z"/>
+</g>`;
+  } else if(type==='R'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 9h5v4h4V9h7v4h4V9h5v6H10V9z"/>
+<path d="M10 15h25v3H10z"/>
+<path d="M11 18h23v12H11z"/>
+<path d="M11 30h23v2H11z"/>
+<path d="M9 32h27v4H9z"/>
+<path d="M9 36h27v2H9z"/>
+</g>`;
+  } else if(type==='B'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="22.5" cy="8" r="2.5"/>
+<path d="M20 10.5c-3 3-5 7-5 11 0 3 1 5.5 2.5 7.5"/>
+<path d="M25 10.5c3 3 5 7 5 11 0 3-1 5.5-2.5 7.5"/>
+<path d="M17.5 29c1.5 1.5 3 2.5 5 2.5s3.5-1 5-2.5"/>
+<path d="M13 31.5c2 1.5 5.5 2.5 9.5 2.5s7.5-1 9.5-2.5"/>
+<path d="M11 35c3-1.5 7-2.5 11.5-2.5S38 33.5 34 35"/>
+<path d="M11 35v2c3-1 7-2 11.5-2S38 36 34 37v-2"/>
+<line x1="22.5" y1="10.5" x2="22.5" y2="29" stroke="${hi}" stroke-width="1" fill="none"/>
+</g>`;
+  } else if(type==='N'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<path d="M22 10c-4 0-9 4-9 11 0 4 2 7 2 7l-3 8h21l-2-7s3-4 3-9c0-6-5-10-12-10z"/>
+<path d="M13 21c1-1 3-1 4 0"/>
+<path d="M16 14c2-3 5-4 8-4"/>
+<path d="M13 21c-1-2-2-5-1-7"/>
+<circle cx="18" cy="16" r="1.2" fill="${s}"/>
+<path d="M11 36h23v2H11z"/>
+</g>`;
+  } else if(type==='P'){
+    paths=`<g fill="${f}" stroke="${s}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="22.5" cy="10" r="4"/>
+<path d="M18.5 14c-2 2-3 5-3 7 0 3 2 5 4 6.5"/>
+<path d="M26.5 14c2 2 3 5 3 7 0 3-2 5-4 6.5"/>
+<path d="M19.5 27.5c-3 1-6 4-7 9h20c-1-5-4-8-7-9"/>
+<path d="M12.5 36.5h20v2h-20z"/>
+</g>`;
+  }
+  return makeSVG(paths,44);
+}
+
+let board,sel,legal,turn,halfMoves,lastF,lastT,pendMove,thinkSec,thinkIv,moveReady,gameOver;
+let playerColor='w';
+
+function initGame(){
+  board=Array(8).fill(null).map(()=>Array(8).fill(null));
+  const back=['R','N','B','Q','K','B','N','R'];
+  for(let c=0;c<8;c++){board[0][c]='b'+back[c];board[1][c]='bP';board[6][c]='wP';board[7][c]='w'+back[c];}
+  sel=null;legal=[];turn='w';halfMoves=0;lastF=null;lastT=null;pendMove=null;
+  thinkSec=0;moveReady=false;gameOver=false;
+  clearInterval(thinkIv);
+  playerColor=document.getElementById('color-sel').value;
+  document.getElementById('status-overlay').style.display='none';
+  updateTimerUI(0,true);
+  const btn=document.getElementById('confirm-btn');
+  btn.disabled=true;btn.className='confirm-btn instant';
+  document.getElementById('info-msg').textContent='Дебют — таймер не нужен';
+  document.getElementById('log').innerHTML='';
+  render();updateLabels();
+  if(turn!==playerColor) setTimeout(aiMove,700);
+}
+
+function pCol(p){return p?p[0]:null;}
+function inB(r,c){return r>=0&&r<8&&c>=0&&c<8;}
+
+function getLegal(r,c,brd){
+  brd=brd||board;
+  const p=brd[r][c];if(!p)return[];
+  const col=p[0],type=p[1];const mv=[];
+  const add=(tr,tc)=>{if(inB(tr,tc)&&pCol(brd[tr][tc])!==col)mv.push([tr,tc]);};
+  const slide=(dr,dc)=>{let nr=r+dr,nc=c+dc;while(inB(nr,nc)){if(brd[nr][nc]){if(pCol(brd[nr][nc])!==col)mv.push([nr,nc]);break;}mv.push([nr,nc]);nr+=dr;nc+=dc;}};
+  if(type==='P'){
+    const dir=col==='w'?-1:1,st=col==='w'?6:1;
+    if(inB(r+dir,c)&&!brd[r+dir][c]){mv.push([r+dir,c]);if(r===st&&!brd[r+2*dir][c])mv.push([r+2*dir,c]);}
+    [[r+dir,c-1],[r+dir,c+1]].forEach(([tr,tc])=>{if(inB(tr,tc)&&brd[tr][tc]&&pCol(brd[tr][tc])!==col)mv.push([tr,tc]);});
+  }else if(type==='N'){[[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]].forEach(([dr,dc])=>add(r+dr,c+dc));}
+  else if(type==='B'){[[-1,-1],[-1,1],[1,-1],[1,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='R'){[[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='Q'){[[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>slide(dr,dc));}
+  else if(type==='K'){[[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]].forEach(([dr,dc])=>add(r+dr,c+dc));}
+  return mv;
+}
+
+const VALS={P:100,N:320,B:330,R:500,Q:900,K:20000};
+const PST={
+  P:[[0,0,0,0,0,0,0,0],[50,50,50,50,50,50,50,50],[10,10,20,30,30,20,10,10],[5,5,10,25,25,10,5,5],[0,0,0,20,20,0,0,0],[5,-5,-10,0,0,-10,-5,5],[5,10,10,-20,-20,10,10,5],[0,0,0,0,0,0,0,0]],
+  N:[[-50,-40,-30,-30,-30,-30,-40,-50],[-40,-20,0,0,0,0,-20,-40],[-30,0,10,15,15,10,0,-30],[-30,5,15,20,20,15,5,-30],[-30,0,15,20,20,15,0,-30],[-30,5,10,15,15,10,5,-30],[-40,-20,0,5,5,0,-20,-40],[-50,-40,-30,-30,-30,-30,-40,-50]],
+  B:[[-20,-10,-10,-10,-10,-10,-10,-20],[-10,0,0,0,0,0,0,-10],[-10,0,5,10,10,5,0,-10],[-10,5,5,10,10,5,5,-10],[-10,0,10,10,10,10,0,-10],[-10,10,10,10,10,10,10,-10],[-10,5,0,0,0,0,5,-10],[-20,-10,-10,-10,-10,-10,-10,-20]],
+  R:[[0,0,0,0,0,0,0,0],[5,10,10,10,10,10,10,5],[-5,0,0,0,0,0,0,-5],[-5,0,0,0,0,0,0,-5],[-5,0,0,0,0,0,0,-5],[-5,0,0,0,0,0,0,-5],[-5,0,0,0,0,0,0,-5],[0,0,0,5,5,0,0,0]],
+  Q:[[-20,-10,-10,-5,-5,-10,-10,-20],[-10,0,0,0,0,0,0,-10],[-10,0,5,5,5,5,0,-10],[-5,0,5,5,5,5,0,-5],[0,0,5,5,5,5,0,-5],[-10,5,5,5,5,5,0,-10],[-10,0,5,0,0,0,0,-10],[-20,-10,-10,-5,-5,-10,-10,-20]],
+  K:[[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-30,-40,-40,-50,-50,-40,-40,-30],[-20,-30,-30,-40,-40,-30,-30,-20],[-10,-20,-20,-20,-20,-20,-20,-10],[20,20,0,0,0,0,20,20],[20,30,10,0,0,10,30,20]]
+};
+
+function evalBoard(brd){
+  let score=0;
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    const p=brd[r][c];if(!p)continue;
+    const col=p[0],type=p[1];
+    const v=VALS[type];
+    const pr=col==='w'?r:7-r;
+    const pst=PST[type]?PST[type][pr][c]:0;
+    score+=col==='w'?(v+pst):-(v+pst);
+  }
+  return score;
+}
+
+function cloneBoard(brd){return brd.map(r=>r.slice());}
+
+function allMoves(col,brd){
+  const moves=[];
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
+    if(brd[r][c]&&pCol(brd[r][c])===col){
+      getLegal(r,c,brd).forEach(([tr,tc])=>moves.push([r,c,tr,tc]));
+    }
+  }
+  return moves;
+}
+
+function applyBrd(brd,fr,fc,tr,tc){
+  const nb=cloneBoard(brd);
+  const p=nb[fr][fc];
+  if(p&&p[1]==='P'&&((p[0]==='w'&&tr===0)||(p[0]==='b'&&tr===7))) nb[tr][tc]=p[0]+'Q';
+  else nb[tr][tc]=p;
+  nb[fr][fc]=null;
+  return nb;
+}
+
+function minimax(brd,depth,alpha,beta,maxing){
+  if(depth===0) return evalBoard(brd);
+  const col=maxing?'w':'b';
+  const moves=allMoves(col,brd);
+  if(!moves.length) return maxing?-9999:9999;
+  if(maxing){
+    let best=-Infinity;
+    for(const [fr,fc,tr,tc] of moves){
+      const nb=applyBrd(brd,fr,fc,tr,tc);
+      best=Math.max(best,minimax(nb,depth-1,alpha,beta,false));
+      alpha=Math.max(alpha,best);
+      if(beta<=alpha) break;
+    }
+    return best;
+  } else {
+    let best=Infinity;
+    for(const [fr,fc,tr,tc] of moves){
+      const nb=applyBrd(brd,fr,fc,tr,tc);
+      best=Math.min(best,minimax(nb,depth-1,alpha,beta,true));
+      beta=Math.min(beta,best);
+      if(beta<=alpha) break;
+    }
+    return best;
+  }
+}
+
+function aiMove(){
+  if(gameOver) return;
+  const lvl=parseInt(document.getElementById('lvl-sel').value);
+  const depth=lvl<=1?1:lvl<=2?2:lvl<=3?3:4;
+  const aiCol=playerColor==='w'?'b':'w';
+  const moves=allMoves(aiCol,board);
+  if(!moves.length){showResult('Пат! Ничья.');return;}
+  const maxing=aiCol==='w';
+  let best=maxing?-Infinity:Infinity;
+  let bestMove=moves[0];
+  const noise=[60,25,10,0][lvl-1];
+  for(const [fr,fc,tr,tc] of moves){
+    const nb=applyBrd(board,fr,fc,tr,tc);
+    let score=minimax(nb,depth-1,-Infinity,Infinity,!maxing);
+    score+=Math.random()*noise*(Math.random()<.5?1:-1);
+    if((maxing&&score>best)||(!maxing&&score<best)){best=score;bestMove=[fr,fc,tr,tc];}
+  }
+  const [fr,fc,tr,tc]=bestMove;
+  commitMove(fr,fc,tr,tc,false);
+}
+
+function getPhase(){
+  if(halfMoves<OPENING_HALF) return 'op';
+  let heavy=0;
+  for(let r=0;r<8;r++) for(let c=0;c<8;c++){const p=board[r][c];if(p&&'QR'.includes(p[1]))heavy++;}
+  return heavy<=2?'end':'mid';
+}
+
+function render(){
+  const flip=playerColor==='b';
+  const cl=document.getElementById('col-labels');
+  cl.innerHTML='';
+  const cols=flip?[...'hgfedcba']:[...'abcdefgh'];
+  cols.forEach(l=>{const d=document.createElement('div');d.className='col-lbl';d.textContent=l;cl.appendChild(d);});
+  const br=document.getElementById('board-rows');br.innerHTML='';
+  const rows=flip?[0,1,2,3,4,5,6,7]:[7,6,5,4,3,2,1,0];
+  const colOrder=flip?[7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7];
+  rows.forEach(r=>{
+    const row=document.createElement('div');row.className='board-row';
+    const rl=document.createElement('div');rl.className='row-lbl';rl.textContent=r+1;row.appendChild(rl);
+    colOrder.forEach(c=>{
+      const sq=document.createElement('div');
+      const light=(r+c)%2===0;
+      const isLM=(lastF&&lastF[0]===r&&lastF[1]===c)||(lastT&&lastT[0]===r&&lastT[1]===c);
+      sq.className='sq '+(isLM?(light?'lm-light':'lm-dark'):(light?'light':'dark'));
+      if(sel&&sel[0]===r&&sel[1]===c) sq.classList.add('sel');
+      const isHint=legal.some(([lr,lc])=>lr===r&&lc===c);
+      if(isHint) sq.classList.add(board[r][c]?'hint-cap':'hint-dot');
+      if(board[r][c]){
+        const pc=document.createElement('div');pc.className='piece';pc.innerHTML=pieceHTML(board[r][c]);sq.appendChild(pc);
+      }
+      sq.dataset.r=r;sq.dataset.c=c;
+      sq.addEventListener('click',onSqClick);
+      row.appendChild(sq);
+    });
+    br.appendChild(row);
+  });
+}
+
+function onSqClick(e){
+  if(gameOver||turn!==playerColor) return;
+  const r=+e.currentTarget.dataset.r,c=+e.currentTarget.dataset.c;
+  if(sel){
+    const isL=legal.some(([lr,lc])=>lr===r&&lc===c);
+    if(isL){
+      pendMove=[sel[0],sel[1],r,c];sel=null;legal=[];
+      if(getPhase()==='op'){
+        moveReady=true;
+        const btn=document.getElementById('confirm-btn');
+        btn.disabled=false;btn.className='confirm-btn instant';
+        document.getElementById('think-msg').textContent='Дебют — ходите сразу!';
+        document.getElementById('info-msg').textContent='';
+        updateTimerUI(20,true);
+      } else startTimer();
+      render();return;
+    }
+  }
+  if(board[r][c]&&pCol(board[r][c])===playerColor){
+    sel=[r,c];legal=getLegal(r,c);pendMove=null;
+    if(getPhase()==='op'){moveReady=false;document.getElementById('confirm-btn').disabled=true;}
+    render();
+  } else {sel=null;legal=[];pendMove=null;render();}
+}
+
+function startTimer(){
+  clearInterval(thinkIv);thinkSec=0;moveReady=false;
+  const btn=document.getElementById('confirm-btn');
+  btn.disabled=true;btn.className='confirm-btn';
+  updateTimerUI(0,false);
+  document.getElementById('think-msg').textContent='Обдумайте позицию...';
+  document.getElementById('info-msg').textContent='Подтверждение через 20 сек';
+  thinkIv=setInterval(()=>{
+    thinkSec++;updateTimerUI(thinkSec,false);
+    if(thinkSec>=20&&!moveReady){
+      moveReady=true;clearInterval(thinkIv);
+      const btn=document.getElementById('confirm-btn');
+      btn.disabled=false;btn.className='confirm-btn ready';
+      document.getElementById('think-msg').textContent='Хорошо подумали! Можно ходить.';
+      document.getElementById('info-msg').textContent='Нажмите «Подтвердить ход»';
+    }
+  },1000);
+}
+
+function updateTimerUI(sec,opening){
+  const pct=Math.min(sec/20,1);
+  const ring=document.getElementById('ring');
+  ring.style.strokeDashoffset=188.5*(1-pct);
+  if(opening){ring.style.stroke='#185fa5';document.getElementById('ring-num').textContent='—';}
+  else{ring.style.stroke=pct<.5?'#e24b4a':pct<.9?'#ef9f27':'#4a9e5c';document.getElementById('ring-num').textContent=sec<20?(20-sec):0;}
+}
+
+function updateLabels(){
+  const ph=getPhase();
+  const pill=document.getElementById('phase-pill');
+  if(ph==='op'){pill.className='phase-pill ph-op';pill.textContent='Дебют';}
+  else if(ph==='mid'){pill.className='phase-pill ph-mid';pill.textContent='Миттельшпиль';}
+  else{pill.className='phase-pill ph-end';pill.textContent='Эндшпиль';}
+  const isPlayer=turn===playerColor;
+  const colorName=playerColor==='w'?'белые':'чёрные';
+  const aiName=playerColor==='w'?'чёрные':'белые';
+  document.getElementById('turn-lbl').textContent=isPlayer?`Ваш ход (${colorName})`:`Компьютер думает (${aiName})...`;
+  if(!pendMove&&isPlayer){
+    document.getElementById('think-msg').textContent='Выберите фигуру';
+    document.getElementById('info-msg').textContent=ph==='op'?'Дебют — таймер не нужен':'Обдумайте ход минимум 20 сек';
+  }
+  if(ph==='op') updateTimerUI(20,true);
+  else if(!pendMove) updateTimerUI(0,false);
+}
+
+function commitMove(fr,fc,tr,tc,isPlayer){
+  const p=board[fr][fc];
+  const capName=board[tr][tc]?board[tr][tc][1]:'';
+  const isPromo=p&&p[1]==='P'&&((p[0]==='w'&&tr===0)||(p[0]==='b'&&tr===7));
+  if(isPromo) board[tr][tc]=p[0]+'Q'; else board[tr][tc]=p;
+  board[fr][fc]=null;
+  lastF=[fr,fc];lastT=[tr,tc];
+  const ph=getPhase();
+  const logEl=document.getElementById('log');
+  const sp=document.createElement('span');
+  const mn=Math.floor(halfMoves/2)+1;
+  sp.textContent=(halfMoves%2===0?mn+'.':'')+FILES[fc]+(fr+1)+'→'+FILES[tc]+(tr+1)+(capName?'x':'');
+  sp.className=ph==='op'?'op':ph==='mid'?'mid':'end';
+  logEl.appendChild(sp);logEl.scrollTop=logEl.scrollHeight;
+  halfMoves++;
+  if(capName==='K'){showResult(isPlayer?'Вы победили!':'Компьютер победил.');return;}
+  turn=turn==='w'?'b':'w';
+  sel=null;legal=[];pendMove=null;moveReady=false;
+  clearInterval(thinkIv);
+  const btn=document.getElementById('confirm-btn');
+  btn.disabled=true;btn.className='confirm-btn instant';
+  render();updateLabels();
+  if(turn!==playerColor&&!gameOver) setTimeout(aiMove,500);
+}
+
+function showResult(msg){
+  gameOver=true;clearInterval(thinkIv);
+  const ov=document.getElementById('status-overlay');
+  ov.textContent=msg;ov.style.display='block';
+  document.getElementById('confirm-btn').disabled=true;
+}
+
+document.getElementById('confirm-btn').addEventListener('click',()=>{
+  if(!pendMove||!moveReady||gameOver) return;
+  const [fr,fc,tr,tc]=pendMove;
+  commitMove(fr,fc,tr,tc,true);
+});
+
+document.getElementById('new-btn').addEventListener('click',initGame);
+document.getElementById('color-sel').addEventListener('change',initGame);
+
+initGame();
+</script>
+</body>
+</html>

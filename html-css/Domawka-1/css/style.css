@@ -1,0 +1,57 @@
+body {
+    font-family: monospace;
+}
+
+header {
+    text-align: center;
+    color: lightcoral;
+    background-color: bisque;
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid coral;
+}
+
+
+/*класс для фотографиий*/
+.durak_img {
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+h3 span {
+    text-align: center;
+}
+
+/*класс для ссылки*/
+.link {
+    color: darkslateblue;
+    font-weight: 100;
+}
+
+/*класс для списка*/
+.list {
+    list-style-position: inside;
+    text-align: center;
+    color: blue;
+}
+
+/*класс для таблицы*/
+.table {
+    text-align: center;
+    color: red;
+}
+
+footer {
+    bottom: 0;
+    width: 100%;
+    text-align: left;
+    color: black;
+    background-color: darkgrey;
+    padding-bottom: 6px
+}
+
+h4 span {
+    text-transform: uppercase;
+}
