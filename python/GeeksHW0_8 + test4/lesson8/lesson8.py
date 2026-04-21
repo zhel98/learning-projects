@@ -47,3 +47,17 @@ def get_user_grades():
     results = cursor.fetchall()
     for name, subject, grade in results:
         print(f'User: {name}, Subject: {subject}, Grade: {grade}')
+        
+
+def get_sum_grades():
+    cursor.execute('''
+    SELECT users.name, SUM(course.grade)
+    FROM users FULL OUTER JOIN course ON users.id = course.user_id
+    GROUP BY users.name
+    ''')
+    results = cursor.fetchall()
+    for name, total_grade in results:
+        print(f'User: {name}, Total Grade: {total_grade}')
+
+get_user_grades()
+get_sum_grades()
