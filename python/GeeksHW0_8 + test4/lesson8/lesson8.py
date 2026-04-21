@@ -59,5 +59,15 @@ def get_sum_grades():
     for name, total_grade in results:
         print(f'User: {name}, Total Grade: {total_grade}')
 
-get_user_grades()
-get_sum_grades()
+# get_user_grades()
+# get_sum_grades()
+
+
+def create_my_view():
+    cursor.execute('''
+    CREATE VIEW IF NOT EXISTS user_grades AS
+    SELECT users.name, course.subject, course.grade
+    FROM users FULL OUTER JOIN course ON users.id = course.user_id
+    ''')
+    connect.commit()
+    print('View user_grades created successfully.')
