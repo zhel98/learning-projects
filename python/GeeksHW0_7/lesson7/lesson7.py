@@ -6,7 +6,7 @@ connect = sqlite3.connect("users.db")
 cursor = connect.cursor()
 
 cursor.execute('''
-        CREATE TABLE users(
+        CREATE TABLE IF NOT EXISTS users(
            name VARCHAR(50) NOT NULL,
            age INTEGER NOT NULL,
            hobby TEXT
