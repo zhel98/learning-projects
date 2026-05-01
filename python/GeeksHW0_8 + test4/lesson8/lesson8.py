@@ -56,7 +56,7 @@ def get_user_grade():
         print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
 
 
-#---LEFT JOIN--- # возвращает все строки из левой таблицы + совпадения из правой (если нет — NULL)
+#---LEFT JOIN--- # возвращает все строки из ЛЕВОЙ таблицы + совпадения из правой (если нет — NULL)
 def get_user_grade2():
     cursor.execute(
         ''' SELECT users2.name, grades.grade, grades.subject
@@ -68,7 +68,7 @@ def get_user_grade2():
         print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
 
 
-#---RIGHT JOIN--- # возвращает все строки из правой таблицы + совпадения из левой (если нет — NULL)
+#---RIGHT JOIN--- # возвращает все строки из ПРАВОЙ таблицы + совпадения из левой (если нет — NULL)
 def get_user_grade3():
     cursor.execute(
         ''' SELECT users2.name, grades.grade, grades.subject
@@ -96,6 +96,24 @@ def get_user_grade4():
 # get_user_grade3()
 # get_user_grade2()
 # get_user_grade()
+
+
+def get_sum_grades():#заставляем код проходится по каждой строчке
+    cursor.execute('SELECT grade FROM grades')
+    data = cursor.fetchall()
+    sum_data=0
+    for i in data:
+        sum_data += i[0]
+    print(sum_data)
+    
+# get_sum_grades()
+
+def get_sum_grades2():#сама таблица дам выдает данные SUM/COUNT/MIN/MAX/AVG
+    cursor.execute('SELECT SUM(grade) FROM grades')
+    data = cursor.fetchall()
+    print(data)
+
+get_sum_grades2()
 
 
 ''' ----- ЛЕВАЯ ЧАСТЬ -----'''
