@@ -132,14 +132,15 @@ def create_my_view2():
        SELECT user_id FROM grades WHERE grade = 5
        )
     ''')
-create_my_view2()
+
+# create_my_view2()
 
 def get_otlichnik():
     cursor.execute('SELECT * FROM my_view2')
     data = cursor.fetchall()
     print(data)
 
-get_otlichnik()
+# get_otlichnik()
 
 
 
