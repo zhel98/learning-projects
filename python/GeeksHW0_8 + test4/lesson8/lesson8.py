@@ -113,7 +113,29 @@ def get_sum_grades2():#сама таблица дам выдает данные 
     data = cursor.fetchall()
     print(data)
 
-get_sum_grades2()
+#get_sum_grades2()
+
+def create_my_view():
+    cursor.execute('''
+         CREATE VIEW IF NOT EXISTS my_view AS 
+         SELECT users2.name, grades.grade, grades.subject
+         FROM users2 INNER JOIN grades ON users2.id = grades.user_id          
+    ''')
+    connect.commit()
+    print("View created")
+
+#create_my_view()
+
+
+def get_user_inner_grade():
+    cursor.execute('SELECT * FROM my_view')
+    data = cursor.fetchall()
+    print(data)
+    
+get_user_inner_grade()
+
+
+
 
 
 ''' ----- ЛЕВАЯ ЧАСТЬ -----'''
