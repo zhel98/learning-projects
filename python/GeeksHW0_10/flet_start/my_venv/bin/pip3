@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/Users/Eldar Zhapykeev/Documents/GitHub/learning-projects/python/GeeksHW0_10/flet_start/my_venv/bin/python3" "$0" "$@"
+'''exec' "/Users/Eldar Zhapykeev/Documents/GitHub/learning-projects/python/GeeksHW0_10/flet_start/my_venv/bin/python" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
