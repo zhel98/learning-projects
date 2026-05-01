@@ -41,7 +41,7 @@ def create_grade(grade, subject, user_id):
     )
     connect.commit()
     print("Grade added")
-    
+
 
 #---INNER JOIN---# возвращает только те строки, где есть совпадение
 def get_user_grade():
@@ -92,12 +92,6 @@ def get_user_grade4():
         print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
 
 
-# get_user_grade4()
-# get_user_grade3()
-# get_user_grade2()
-# get_user_grade()
-
-
 def get_sum_grades():#заставляем код проходится по каждой строчке
     cursor.execute('SELECT grade FROM grades')
     data = cursor.fetchall()
@@ -105,17 +99,15 @@ def get_sum_grades():#заставляем код проходится по ка
     for i in data:
         sum_data += i[0]
     print(sum_data)
-    
-# get_sum_grades()
+
 
 def get_sum_grades2():#сама таблица дам выдает данные SUM/COUNT/MIN/MAX/AVG
     cursor.execute('SELECT SUM(grade) FROM grades')
     data = cursor.fetchall()
     print(data)
 
-#get_sum_grades2()
 
-def create_my_view():
+def create_my_view():#cоздаем наше представление чтобы более сложные запросы обрабатывать
     cursor.execute('''
          CREATE VIEW IF NOT EXISTS my_view AS 
          SELECT users2.name, grades.grade, grades.subject
@@ -124,15 +116,30 @@ def create_my_view():
     connect.commit()
     print("View created")
 
-#create_my_view()
-
+# create_my_view()
 
 def get_user_inner_grade():
     cursor.execute('SELECT * FROM my_view')
     data = cursor.fetchall()
     print(data)
     
-get_user_inner_grade()
+# get_user_inner_grade()
+
+def create_my_view2():
+    cursor.execute('''
+       CREATE VIEW IF NOT EXISTS my_view2 AS
+       SELECT name FROM users2 WHERE id IN (
+       SELECT user_id FROM grades WHERE grade = 5
+       )
+    ''')
+create_my_view2()
+
+def get_otlichnik():
+    cursor.execute('SELECT * FROM my_view2')
+    data = cursor.fetchall()
+    print(data)
+
+get_otlichnik()
 
 
 
