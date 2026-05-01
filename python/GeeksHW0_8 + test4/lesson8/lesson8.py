@@ -3,71 +3,106 @@ import sqlite3
 connect = sqlite3.connect('grade.db')
 cursor = connect.cursor()
 
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    age INTEGER NOT NULL
-)
+
+cursor.execute(
+    '''CREATE TABLE IF NOT EXISTS users2(
+       id INTEGER PRIMARY KEY AUTOINCREMENT,
+       name VARCHAR(30) NOT NULL,
+       age INTEGER NOT NULL
+       )
 ''')
 
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS course (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    grade INTEGER NOT NULL,
-    subject TEXT NOT NULL,
-    user_id INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-)
-''')
+
+#при помощи форен ки мы связываем две таблицы (id в таблице users2 = user_id в таблице grades)
+cursor.execute(
+    ''' CREATE TABLE IF NOT EXISTS grades(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        grade INTEGER NOT NULL,
+        subject VARCHAR(30) NOT NULL,
+        user_id INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users2(id)        
+        )                     
+ ''')
+
 
 def create_user(name, age):
-    cursor.execute('INSERT INTO users (name, age) VALUES (?, ?)', (name, age))
+    cursor.execute(
+        'INSERT INTO users2(name, age) VALUES (?,?)',
+        (name,age)
+    )
     connect.commit()
-    print(f'User {name} created successfully.')
+    print("User added")
+
 
 def create_grade(grade, subject, user_id):
-    cursor.execute('INSERT INTO course (grade, subject, user_id) VALUES (?, ?, ?)', (grade, subject, user_id))
+    cursor.execute(
+        'INSERT INTO grades(grade, subject, user_id) VALUES(?,?,?)',
+        (grade, subject, user_id)
+    )
     connect.commit()
-    print(f'Grade {grade} for subject {subject} created successfully for user ID {user_id}.')
+    print("Grade added")
+    
 
-
-create_user('Alice', 20)
-create_user('Bob', 22)
-create_grade(85, 'Math', 1)
-create_grade(90, 'Science', 1)
-create_grade(78, 'Math', 2)
-create_grade(88, 'Science', 2)
-
-def get_user_grades():
-    cursor.execute('''
-    SELECT users.name, course.subject, course.grade
-    FROM users FULL OUTER JOIN course ON users.id = course.user_id
+#---INNER JOIN---# возвращает только те строки, где есть совпадение
+def get_user_grade():
+    cursor.execute(
+        ''' SELECT users2.name, grades.grade, grades.subject
+        FROM users2 INNER JOIN grades ON users2.id = grades.user_id           
     ''')
-    results = cursor.fetchall()
-    for name, subject, grade in results:
-        print(f'User: {name}, Subject: {subject}, Grade: {grade}')
-        
+    
+    data = cursor.fetchall()
+    #[("Eldar", 1, "Физра")]
+    for i in data:
+        print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
 
-def get_sum_grades():
-    cursor.execute('''
-    SELECT users.name, SUM(course.grade)
-    FROM users FULL OUTER JOIN course ON users.id = course.user_id
-    GROUP BY users.name
+
+#---LEFT JOIN--- # возвращает все строки из левой таблицы + совпадения из правой (если нет — NULL)
+def get_user_grade2():
+    cursor.execute(
+        ''' SELECT users2.name, grades.grade, grades.subject
+        FROM users2 LEFT JOIN grades ON users2.id = grades.user_id
     ''')
-    results = cursor.fetchall()
-    for name, total_grade in results:
-        print(f'User: {name}, Total Grade: {total_grade}')
-
-# get_user_grades()
-# get_sum_grades()
+    
+    data = cursor.fetchall()
+    for i in data:
+        print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
 
 
-def create_my_view():
-    cursor.execute('''
-    CREATE VIEW IF NOT EXISTS user_grades AS
-    SELECT users.name, course.subject, course.grade
-    FROM users FULL OUTER JOIN course ON users.id = course.user_id
+#---RIGHT JOIN--- # возвращает все строки из правой таблицы + совпадения из левой (если нет — NULL)
+def get_user_grade3():
+    cursor.execute(
+        ''' SELECT users2.name, grades.grade, grades.subject
+        FROM users2 RIGHT JOIN grades ON users2.id = grades.user_id
     ''')
-    connect.commit()
-    print('View user_grades created successfully.')
+    
+    data = cursor.fetchall()
+    for i in data:
+        print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
+
+
+#---FULL OUTER JOIN--- # возвращает все строки из обеих таблиц, даже если нет совпадений
+def get_user_grade4():
+    cursor.execute(
+        ''' SELECT users2.name, grades.grade, grades.subject
+        FROM users2 FULL OUTER JOIN grades ON users2.id = grades.user_id
+    ''')
+    
+    data = cursor.fetchall()
+    for i in data:
+        print(f"NAME: {i[0]}, GRADE: {i[1]}, SUBJECT:{i[2]}")
+
+
+# get_user_grade4()
+# get_user_grade3()
+# get_user_grade2()
+# get_user_grade()
+
+
+''' ----- ЛЕВАЯ ЧАСТЬ -----'''
+# create_user("Eldar",28) - ID : 1
+# create_user("Eblan", 29) - ID : 2
+# create_user("Misha", 19) - ID: 3 
+'''----- ПРАВАЯ ЧАСТЬ -----'''
+# create_grade(5,"Физра",1)- ID : 1
+# create_grade(2,"Физра",2)- ID : 2
+# create_grade(1,"Физра",4)- ID : 4 - ВОТ ЭТОТ АЙДШИНИК НЕ СОВПАДАЕТ С АЙДИШНИКОМ В ЛЕВОЙ ЧАСТИ
