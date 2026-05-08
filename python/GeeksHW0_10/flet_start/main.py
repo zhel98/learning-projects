@@ -8,7 +8,8 @@ def main_page(page: ft.Page):
     hello_text = ft.Text(value='Hello World')
     greeting_history=[]
     history_text = ft.Text(value='история приветствий:')
-
+    favorite_history = []
+    fav_names = ft.Text(value='любимки:')
     
     def on_button_click(_):
         # print(name_input.value)
@@ -21,13 +22,12 @@ def main_page(page: ft.Page):
             hello_text.color= None
             hello_text.value= f'Hello {name}'
             name_input.value = None
-            # print(name)
             greeting_history.append(name)
-            
+            if len(greeting_history) > 5:
+                greeting_history.pop(0)
             print(greeting_history)
             history_text.value = 'история изменений: \n-' + '\n-' .join(greeting_history)
         else:
-            # print("Error")
             hello_text.value = 'Ошибка введите имя'
             hello_text.color = ft.Colors.RED
         page.update()
@@ -47,14 +47,25 @@ def main_page(page: ft.Page):
     
     def clear_history(_):
         greeting_history.clear()
+        favorite_history.clear()
         history_text.value = 'история приветствий: '
+        fav_names.value = 'любимки: '
         page.update()
     
     clear_button = ft.IconButton(icon=ft.Icons.CLEAR, on_click = clear_history)
     
+    def fav_history(_):
+      if greeting_history:
+          last_name = greeting_history[-1] 
+          if last_name not in favorite_history:
+              favorite_history.append(last_name)
+          fav_names.value = 'любимки: \n-' + '\n-' .join(favorite_history)
+      page.update()
+      
+    fav_button = ft.IconButton(icon=ft.Icons.FAVORITE, on_click = fav_history)
     
     
-    page.add(hello_text, name_input, elevated_button, change_theme_button, history_text, clear_button)
+    page.add(hello_text, name_input,ft.Row([elevated_button, change_theme_button, fav_button, clear_button]), history_text, fav_names)
 
 
 
