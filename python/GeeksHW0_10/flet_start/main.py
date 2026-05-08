@@ -1,4 +1,5 @@
 import flet as ft
+from datetime import datetime
 
 def main_page(page: ft.Page):
     page.title = 'Мое первое приложение'
@@ -11,6 +12,8 @@ def main_page(page: ft.Page):
         # print(name_input.value)
         # print(f'{_}')
         name = name_input.value.strip()
+        current_time = datetime.now().strftime("%Y:%m:%d - %H:%M:%S")
+        print(f"{current_time} - Привет, {name}!")
         
         if name:
             hello_text.color= None
@@ -31,8 +34,8 @@ def main_page(page: ft.Page):
         page.update()
         
     change_theme_button = ft.IconButton(ft.Icons.BRIGHTNESS_6, on_click=change_them)
-    name_input = ft.TextField(max_length=5, label='ты пидор', on_submit=on_button_click)
-    elevated_button = ft.ElevatedButton(text = 'SEND', icon=ft.Icons.SEND, on_click=on_button_click)
+    name_input = ft.TextField(label='Введите имя', on_submit=on_button_click)
+    elevated_button = ft.ElevatedButton('SEND', icon=ft.Icons.SEND, on_click=on_button_click)
     # text_button = ft.TextButton(text='SEND', icon=ft.Icons.SEND)
     # icon_button = ft.IconButton(icon=ft.Icons.SEND) #не прнимает текст в отличии от своих соседей
     
