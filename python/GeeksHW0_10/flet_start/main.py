@@ -6,6 +6,8 @@ def main_page(page: ft.Page):
     page.theme_mode = ft.ThemeMode.LIGHT
     
     hello_text = ft.Text(value='Hello World')
+    greeting_history=[]
+    history_text = ft.Text(value='история приветствий:')
 
     
     def on_button_click(_):
@@ -20,6 +22,10 @@ def main_page(page: ft.Page):
             hello_text.value= f'Hello {name}'
             name_input.value = None
             # print(name)
+            greeting_history.append(name)
+            
+            print(greeting_history)
+            history_text.value = 'история изменений: \n-' + '\n-' .join(greeting_history)
         else:
             # print("Error")
             hello_text.value = 'Ошибка введите имя'
@@ -39,7 +45,16 @@ def main_page(page: ft.Page):
     # text_button = ft.TextButton(text='SEND', icon=ft.Icons.SEND)
     # icon_button = ft.IconButton(icon=ft.Icons.SEND) #не прнимает текст в отличии от своих соседей
     
-    page.add(hello_text, name_input, elevated_button, change_theme_button)
+    def clear_history(_):
+        greeting_history.clear()
+        history_text.value = 'история приветствий: '
+        page.update()
+    
+    clear_button = ft.IconButton(icon=ft.Icons.CLEAR, on_click = clear_history)
+    
+    
+    
+    page.add(hello_text, name_input, elevated_button, change_theme_button, history_text, clear_button)
 
 
 
