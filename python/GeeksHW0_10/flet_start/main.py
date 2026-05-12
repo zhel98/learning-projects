@@ -1,5 +1,6 @@
 import flet as ft
 from datetime import datetime
+import random
 
 def main_page(page: ft.Page):
     page.title = 'Мое первое приложение'
@@ -8,6 +9,7 @@ def main_page(page: ft.Page):
     hello_text = ft.Text(value='Hello World')
     greeting_history=[]
     history_text = ft.Text(value='история приветствий:')
+    random_name_txt = ft.Text(value='случайное имя: ')
     favorite_history = []
     fav_names = ft.Text(value='любимки:')
     
@@ -64,8 +66,19 @@ def main_page(page: ft.Page):
       
     fav_button = ft.IconButton(icon=ft.Icons.FAVORITE, on_click = fav_history)
     
+    def random_name(_):
+        random_name_txt.value = 'случайное имя: \n-' +  random.choice(greeting_history)
+        page.update()
     
-    page.add(hello_text, name_input,ft.Row([elevated_button, change_theme_button, fav_button, clear_button]), history_text, fav_names)
+    random_button = ft.IconButton(icon=ft.Icons.RAMEN_DINING, on_click = random_name)
+    
+    def hide_all_toggle(_):
+        history_text.visible = not history_text.visible
+        page.update()
+        
+    hide_button = ft.IconButton(icon=ft.Icons.HIDE_SOURCE, on_click = hide_all_toggle)
+    
+    page.add(hello_text, name_input,ft.Row([elevated_button, change_theme_button, fav_button, clear_button, random_button, hide_button]), history_text, fav_names, random_name_txt)
 
 
 
