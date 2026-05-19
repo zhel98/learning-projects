@@ -7,6 +7,13 @@ def main_page(page: ft.Page):
     
     task_list = ft.Column()
     
+    def load_tasks():
+        task_list.controls.clear()
+        for task_id, task in main_db.get_tasks():
+            task_list.controls.append(view_task(task_id=task_id, task_text=task))
+            page.update()
+            
+    
     def view_task(task_id, task_text):
         task_field = ft.TextField(value=task_text)
         
@@ -28,10 +35,13 @@ def main_page(page: ft.Page):
         
         def delete_existing_task(_):
             main_db.delete_task(task_id)
-            task_list.controls.
+            task_list.controls.remove(_.control.parent)
+            page.update()
+        
+        delete_button = ft.IconButton(icon= ft.Icons.DELETE, style=ft.ButtonStyle(bgcolor=ft.Colors.RED), on_click = delete_existing_task)
             
         
-        return ft.Row([task_field, edit_button,save_button])
+        return ft.Row([task_field, edit_button,save_button, delete_button])
    
     def add_task_flet(_):
         if task_input.value:
