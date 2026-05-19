@@ -25,8 +25,14 @@ def main_page(page: ft.Page):
                 
         edit_button = ft.IconButton(icon=ft.Icons.EDIT, on_click= enable_edit)
         
+        
+        def delete_existing_task(_):
+            main_db.delete_task(task_id)
+            task_list.controls.
+            
+        
         return ft.Row([task_field, edit_button,save_button])
-    
+   
     def add_task_flet(_):
         if task_input.value:
             task_text = task_input.value.strip()
