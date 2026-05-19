@@ -5,7 +5,9 @@ def main_page(page: ft.Page):
     page.title = 'ToDo list'
     page.theme_mode = ft.ThemeMode.LIGHT
     
-    task_list = ft.Column()
+    task_list = ft.Column(spacing=10,scroll=ft.ScrollMode.AUTO, expand=True)
+    
+    filter_type = 'all '
     
     def load_tasks():
         task_list.controls.clear()
@@ -15,7 +17,7 @@ def main_page(page: ft.Page):
             
     
     def view_task(task_id, task_text):
-        task_field = ft.TextField(value=task_text)
+        task_field = ft.TextField(value=task_text, expand=True)
         
         def save_edit(_):
             main_db.upadte_task(task_id=task_id, new_task=task_field.value)
@@ -53,7 +55,13 @@ def main_page(page: ft.Page):
     
     task_input = ft.TextField(label='введите задачу', on_submit = add_task_flet)
     
-    page.add(task_input, task_list)
+    def set_fiter(filter_value):
+        nonlocal filter_type
+        print(filter_type)
+        
+    
+    page.add(ft.Column([task_input,task_list],spacing=10,expand=True))
+    load_tasks()
     
 
 if __name__ == '__main__':

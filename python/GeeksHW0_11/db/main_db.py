@@ -38,9 +38,12 @@ def delete_task(task_id):
     conn.commit()
     conn.close()
 
-def get_tasks(filter_type:None):
+def get_tasks(filter_type=None):
     conn = sqlite3.connect(path_db)
     cursor = conn.cursor()
+    if filter_type == 'all':
+        cursor.execute(queries.select_tasks)
+    elif filter_type == 'complted'
     cursor.execute(queries.select_tasks)
     tasks = cursor.fetchall()
     conn.close()
