@@ -13,7 +13,7 @@ create_tasks_table = '''
 insert_task = 'INSERT INTO tasks (task) VALUES (?)'
 
 #read
-select_tasks = 'SELECT id, task FROM tasks'
+select_tasks = 'SELECT id, task, completed FROM tasks'
 select_tasks_completed = 'SELECT id, task FROM tasks WHERE completed = 1'
 select_tasks_uncompleted = 'SELECT id, task FROM tasks WHERE completed = 0'
 

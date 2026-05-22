@@ -7,22 +7,22 @@ def main_page(page: ft.Page):
     
     task_list = ft.Column(spacing=10,scroll=ft.ScrollMode.AUTO, expand=True)
     
-    filter_type = 'all '
+    filter_type = 'all'
     
     def load_tasks():
         task_list.controls.clear()
-        for task_id, task in main_db.get_tasks(filter_type):
-            task_list.controls.append(view_task(task_id=task_id, task_text=task))
+        for task_id, task, completed in main_db.get_tasks(filter_type):
+            task_list.controls.append(view_task(task_id=task_id, task_text=task, completed=completed))
             page.update()
             
     
     def view_task(task_id, task_text, completed = None):
         task_field = ft.TextField(value=task_text, expand=True)
-        
-        checkbox = ft.Checkbox(value=bool(completed), on_change = lambda e: toggle_task(task_id=task_id, is_completed=e.control))
+
+        checkbox = ft.Checkbox(value=bool(completed), on_change = lambda e: toggle_task(task_id=task_id, is_completed=e.control.value))
         
         def save_edit(_):
-            main_db.upadte_task(task_id=task_id, new_task=task_field.value)
+            main_db.update_task(task_id=task_id, new_task=task_field.value)
             task_field.read_only = True
             page.update()
         
@@ -47,10 +47,10 @@ def main_page(page: ft.Page):
         
         return ft.Row([checkbox, task_field, edit_button,save_button, delete_button])
     
-    def toggle_taks(task_id, is_completed):
+    def toggle_task(task_id, is_completed):
         print(is_completed)
         main_db.update_task(task_id = task_id, completed = int(is_completed))
-        page.update()
+        load_tasks()
         print(int(is_completed))
         
     def add_task_flet(_):
