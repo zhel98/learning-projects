@@ -11,13 +11,15 @@ def main_page(page: ft.Page):
     
     def load_tasks():
         task_list.controls.clear()
-        for task_id, task in main_db.get_tasks():
+        for task_id, task in main_db.get_tasks(filter_type):
             task_list.controls.append(view_task(task_id=task_id, task_text=task))
             page.update()
             
     
-    def view_task(task_id, task_text):
+    def view_task(task_id, task_text, completed = None):
         task_field = ft.TextField(value=task_text, expand=True)
+        
+        checkbox = ft.Checkbox(value=bool(completed), on_change = lambda e: toggle_task(task_id=task_id, is_completed=e.control))
         
         def save_edit(_):
             main_db.upadte_task(task_id=task_id, new_task=task_field.value)
@@ -43,8 +45,14 @@ def main_page(page: ft.Page):
         delete_button = ft.IconButton(icon= ft.Icons.DELETE, style=ft.ButtonStyle(bgcolor=ft.Colors.RED), on_click = delete_existing_task)
             
         
-        return ft.Row([task_field, edit_button,save_button, delete_button])
-   
+        return ft.Row([checkbox, task_field, edit_button,save_button, delete_button])
+    
+    def toggle_taks(task_id, is_completed):
+        print(is_completed)
+        main_db.update_task(task_id = task_id, completed = int(is_completed))
+        page.update()
+        print(int(is_completed))
+        
     def add_task_flet(_):
         if task_input.value:
             task_text = task_input.value.strip()
@@ -55,12 +63,33 @@ def main_page(page: ft.Page):
     
     task_input = ft.TextField(label='введите задачу', on_submit = add_task_flet)
     
-    def set_fiter(filter_value):
+    def set_filter(filter_value):
         nonlocal filter_type
         print(filter_type)
+        filter_type = filter_value
+        print(filter_type)
+        load_tasks()
+    
+    filter_buttons = ft.Row(
+    [
+        ft.ElevatedButton(
+            'Все задачи',
+            on_click=lambda e: set_filter('all')
+        ),
+        ft.ElevatedButton(
+            'В работе',
+            on_click=lambda e: set_filter('uncompleted')
+        ),
+        ft.ElevatedButton(
+            'Готово',
+            on_click=lambda e: set_filter('completed')
+        ),
+        ],
+        alignment=ft.MainAxisAlignment.SPACE_AROUND
+    )
         
     
-    page.add(ft.Column([task_input,task_list],spacing=10,expand=True))
+    page.add(ft.Column([task_input, filter_buttons, task_list],spacing=10,expand=True))
     load_tasks()
     
 
