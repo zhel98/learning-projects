@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
-from posts.models import Post
+from posts.models import Post, Category
 # Create your views here.
 
 def hello_world(request):
@@ -22,4 +22,14 @@ def posts_list(request):
         text+=f'<h1>{post.title}</h1><br>{post.content}<br>'
     
     return HttpResponse(text)
+
+def categories_list(request):
+    categories = Category.objects.filter(is_active=True)
+
+    text = ''
+
+    for category in categories:
+        text += f'<h1>{category.title}</h1><p>{category.description}</p><br>'
+
+    return HttpResponse(content=text)
     
